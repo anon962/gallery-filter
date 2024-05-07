@@ -1,0 +1,12 @@
+{
+    "files": ["src/main.ts"],
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES2017",
+        "lib": ["DOM", "ESNext"],
+        "module": "amd",
+        "sourceMap": false,
+        "outFile": "dist/main.js",
+        "moduleResolution": "node"
+    }
+}
