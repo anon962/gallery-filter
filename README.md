@@ -2,7 +2,7 @@ Userscript for hiding galleries based on tag / title / uploader.
 
 Some example use cases:
 
-```
+```ts
 window.GALLERY_FILTER_CONFIG = {
     tags: [
         // Hide all galleries with the "parody:..." tag except if the gallery has "parody:original"
@@ -13,6 +13,20 @@ window.GALLERY_FILTER_CONFIG = {
 
         // Hide all galleries with the tags containing the word "big" (eg "big breasts", "big penis")
         //   { hide: ['big'] },
+
+        // Regex is okay too
+        //   { hide: ['^z.*a$', '\sman'] },
+    ],
+    titles: [
+        // Same as above
+        // { hide: ["dorei"], except: ["maid"] },
+    ],
+    uploaders: [
+        // Same as above
+        //   Use the ^ and $ operators if you want an exact match
+        //   For example, write ^some_name$ instead of some_name
+        //     otherwise you'll end up blocking other users with similar names (eg some_name123 and user_with_some_name)
+        // { hide: ['^some_name$'] }
     ],
 }
 ```
