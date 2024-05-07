@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        Hide Galleries
+// @name        Genie's Gallery Filter
 // @source      https://github.com/anon962/gallery-filter
 // @grant       none
 // @include     https://e-hentai.org/
