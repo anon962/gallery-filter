@@ -1,4 +1,4 @@
-window.GALLERY_FILTER_CONFIG = {
+const CONFIG = {
     tags: [
         // Hide all galleries with the "parody:..." tag except if the gallery has "parody:original"
         { hide: ["parody"], except: ["parody:original"] },

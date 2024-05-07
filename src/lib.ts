@@ -1,12 +1,11 @@
 import {
     APIRequest,
+    Config,
     ConfigRule,
     RowRecord,
     RowRecordWithMetadata,
     RowWithMetadata,
 } from "./types"
-
-// ===== Config =====
 
 function selectGalleryRows(): RowRecord {
     const rows = Array.from(
@@ -138,21 +137,21 @@ function checkRule(rule: ConfigRule, strings: string[]): boolean {
     }
 }
 
-function checkGalleryHidden(row: RowWithMetadata): boolean {
-    const bannedByTag = window.GALLERY_FILTER_CONFIG.tags.some((rule) =>
+function checkGalleryHidden(cfg: Config, row: RowWithMetadata): boolean {
+    const bannedByTag = cfg.tags.some((rule) =>
         checkRule(rule, row.metadata.tags)
     )
-    const bannedByTitle = window.GALLERY_FILTER_CONFIG.titles.some((rule) =>
+    const bannedByTitle = cfg.titles.some((rule) =>
         checkRule(rule, [row.metadata.title])
     )
-    const bannedByUploader = window.GALLERY_FILTER_CONFIG.uploaders.some(
-        (rule) => checkRule(rule, [row.metadata.uploader])
+    const bannedByUploader = cfg.uploaders.some((rule) =>
+        checkRule(rule, [row.metadata.uploader])
     )
 
     return bannedByTag || bannedByTitle || bannedByUploader
 }
 
-async function main() {
+export async function run(cfg: Config) {
     const rows = selectGalleryRows()
     const rowsWithMetadata = await fetchApiData(rows)
 
@@ -174,10 +173,8 @@ async function main() {
             "@fixme: selector for title is broken"
         console.log(`Checking visibility of ${title}`, row.a.href, row)
 
-        if (checkGalleryHidden(row)) {
+        if (checkGalleryHidden(cfg, row)) {
             row.tr.style.display = "none"
         }
     }
 }
-
-main()

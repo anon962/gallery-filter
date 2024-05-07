@@ -8,7 +8,7 @@ const userScript = `${header}
 
 ${config}
 
-require(["lib"])
+require(["lib"], (lib) => lib.run(CONFIG))
 
 ${lib}
 `

@@ -4,7 +4,7 @@
         "typescript": "^5.4.5"
     },
     "scripts": {
-        "build": "tsc --build tsconfig.json && node tools/append-header.js",
+        "build": "tsc --build tsconfig.json && node tools/build-userscript.js",
         "watch": "npm-watch"
     },
     "watch": {
