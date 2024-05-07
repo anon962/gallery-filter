@@ -12,7 +12,7 @@
             "patterns": [
                 "src"
             ],
-            "extensions": "ts"
+            "extensions": "ts,js"
         }
     }
 }

@@ -1,3 +1,12 @@
+export interface Config {
+    tags: ConfigRule[]
+}
+
+export interface ConfigRule {
+    hide: string[]
+    except?: string[]
+}
+
 export interface APIRequest {
     method: "gdata"
     gidlist: Array<[string, string]>
@@ -20,3 +29,9 @@ export type RowWithMetadata = Row & {
 }
 
 export type RowRecordWithMetadata = Record<string, RowWithMetadata>
+
+declare global {
+    interface Window {
+        GALLERY_FILTER_CONFIG: Config
+    }
+}

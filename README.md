@@ -29,8 +29,8 @@ And if you're using the Violentmonkey userscript extension, the copy-paste step 
 The tldr is to first setup a web server to host the userscript
 
 ```bash
-cd dist
-python3 -m http.server
+# -c-1 disables caching
+npx http-server ./dist -c-1
 ```
 
 Then when you visit http://localhost:8000/userscript.user.js, Violentmonkey should ask for permission to "track changes" and "reload tab" on change.
