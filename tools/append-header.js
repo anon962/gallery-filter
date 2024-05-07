@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-const lib = fs.readFileSync("dist/main.js").toString().trim()
+const lib = fs.readFileSync("dist/lib.js").toString().trim()
 const header = fs.readFileSync("src/header.js").toString().trim()
 const config = fs.readFileSync("src/default-config.js").toString().trim()
 
@@ -8,7 +8,7 @@ const userScript = `${header}
 
 ${config}
 
-require(["main"])
+require(["lib"])
 
 ${lib}
 `

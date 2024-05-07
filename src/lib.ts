@@ -104,19 +104,13 @@ async function fetchApiData(galleryRows: RowRecord) {
     }
 }
 
-function checkRule(rule: ConfigRule, row: RowWithMetadata): boolean {
+function checkRule(rule: ConfigRule, strings: string[]): boolean {
     const hidePatts = rule.hide.map((s) => stringToPatt(s))
-    const activeHidePattern = findPatternMatchingSome(
-        hidePatts,
-        row.metadata.tags
-    )
+    const activeHidePattern = findPatternMatchingSome(hidePatts, strings)
     const shouldHide = !!activeHidePattern
 
     const exceptionPatts = rule.except?.map((s) => stringToPatt(s)) ?? []
-    const activeException = findPatternMatchingSome(
-        exceptionPatts,
-        row.metadata.tags
-    )
+    const activeException = findPatternMatchingSome(exceptionPatts, strings)
     const isException = !!activeException
 
     if (shouldHide && !isException) {
@@ -132,8 +126,6 @@ function checkRule(rule: ConfigRule, row: RowWithMetadata): boolean {
 
         return false
     } else {
-        console.debug("Row does not match any hide patterns")
-
         return false
     }
 
@@ -146,12 +138,18 @@ function checkRule(rule: ConfigRule, row: RowWithMetadata): boolean {
     }
 }
 
-function checkGalleryVisibility(row: RowWithMetadata): boolean {
+function checkGalleryHidden(row: RowWithMetadata): boolean {
     const bannedByTag = window.GALLERY_FILTER_CONFIG.tags.some((rule) =>
-        checkRule(rule, row)
+        checkRule(rule, row.metadata.tags)
+    )
+    const bannedByTitle = window.GALLERY_FILTER_CONFIG.titles.some((rule) =>
+        checkRule(rule, [row.metadata.title])
+    )
+    const bannedByUploader = window.GALLERY_FILTER_CONFIG.uploaders.some(
+        (rule) => checkRule(rule, [row.metadata.uploader])
     )
 
-    return bannedByTag
+    return bannedByTag || bannedByTitle || bannedByUploader
 }
 
 async function main() {
@@ -176,7 +174,7 @@ async function main() {
             "@fixme: selector for title is broken"
         console.log(`Checking visibility of ${title}`, row.a.href, row)
 
-        if (checkGalleryVisibility(row) === false) {
+        if (checkGalleryHidden(row)) {
             row.tr.style.display = "none"
         }
     }
