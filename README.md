@@ -1,4 +1,4 @@
-Userscript for hiding galleries based on their tags. Similar to the My Tags page on EH but supports regex.
+Userscript for hiding galleries based on tag / title / uploader.
 
 Some example use cases:
 
