@@ -1,5 +1,6 @@
 import {
     APIRequest,
+    ConfigRule,
     RowRecord,
     RowRecordWithMetadata,
     RowWithMetadata,
@@ -103,49 +104,54 @@ async function fetchApiData(galleryRows: RowRecord) {
     }
 }
 
-function checkGalleryVisibility(rowWithMetadata: RowWithMetadata) {
-    for (let rule of window.GALLERY_FILTER_CONFIG.tags) {
-        const hidePatts = rule.hide.map((s) => stringToPatt(s))
-        const activeHidePattern = findPatternMatchingSome(
-            hidePatts,
-            rowWithMetadata.metadata.tags
+function checkRule(rule: ConfigRule, row: RowWithMetadata): boolean {
+    const hidePatts = rule.hide.map((s) => stringToPatt(s))
+    const activeHidePattern = findPatternMatchingSome(
+        hidePatts,
+        row.metadata.tags
+    )
+    const shouldHide = !!activeHidePattern
+
+    const exceptionPatts = rule.except?.map((s) => stringToPatt(s)) ?? []
+    const activeException = findPatternMatchingSome(
+        exceptionPatts,
+        row.metadata.tags
+    )
+    const isException = !!activeException
+
+    if (shouldHide && !isException) {
+        console.log("Row matches a configured hide pattern", activeHidePattern)
+
+        return true
+    } else if (shouldHide && isException) {
+        console.log(
+            "Row matches a configured hide pattern but also an exception pattern",
+            activeHidePattern,
+            activeException
         )
-        const shouldHide = !!activeHidePattern
 
-        const exceptionPatts = rule.except?.map((s) => stringToPatt(s)) ?? []
-        const activeException = findPatternMatchingSome(
-            exceptionPatts,
-            rowWithMetadata.metadata.tags
-        )
-        const isException = !!activeException
+        return false
+    } else {
+        console.debug("Row does not match any hide patterns")
 
-        const isHidden = shouldHide && !isException
-
-        if (shouldHide && !isException) {
-            console.debug(
-                "Row matches a configured hide pattern",
-                activeHidePattern
-            )
-        } else if (shouldHide && isException) {
-            console.debug(
-                "Row matches a configured hide pattern but also an exception pattern",
-                activeHidePattern,
-                activeException
-            )
-        } else {
-            console.debug("Row does not match any hide patterns")
-        }
-
-        return !isHidden
+        return false
     }
 
-    function stringToPatt(string) {
+    function stringToPatt(string: string) {
         return new RegExp(string, "i")
     }
 
-    function findPatternMatchingSome(patts, strings) {
+    function findPatternMatchingSome(patts: RegExp[], strings: string[]) {
         return patts.find((patt) => strings.some((name) => patt.test(name)))
     }
+}
+
+function checkGalleryVisibility(row: RowWithMetadata): boolean {
+    const bannedByTag = window.GALLERY_FILTER_CONFIG.tags.some((rule) =>
+        checkRule(rule, row)
+    )
+
+    return bannedByTag
 }
 
 async function main() {

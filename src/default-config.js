@@ -8,5 +8,8 @@ window.GALLERY_FILTER_CONFIG = {
 
         // Hide all galleries with the tags containing the word "big" (eg "big breasts", "big penis")
         //   { hide: ['big'] },
+
+        // Regex is okay too
+        //   { hide: ['^z.*a$', '\sman'] },
     ],
 }
