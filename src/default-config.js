@@ -6,7 +6,7 @@ const CONFIG = {
         // Hide all languages except english and chinese
         //   { hide: ['language'], except: ['language:english', 'language:chinese'] },
 
-        // Hide all galleries with the tags containing the word "big" (eg "big breasts", "big penis")
+        // Hide all galleries with tags containing the word "big" (eg "big breasts", "big penis")
         //   { hide: ['big'] },
 
         // Regex is okay too
