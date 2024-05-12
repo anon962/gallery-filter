@@ -1,8 +1,8 @@
 export interface Config {
-    tags: ConfigRule[]
-    titles: ConfigRule[]
-    uploaders: ConfigRule[]
-    categories: ConfigRule[]
+    tags?: ConfigRule[]
+    titles?: ConfigRule[]
+    uploaders?: ConfigRule[]
+    categories?: ConfigRule[]
 }
 
 export interface ConfigRule {

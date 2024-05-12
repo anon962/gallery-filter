@@ -138,16 +138,16 @@ function checkRule(rule: ConfigRule, strings: string[]): boolean {
 }
 
 function checkGalleryHidden(cfg: Config, row: RowWithMetadata): boolean {
-    const bannedByTag = cfg.tags.some((rule) =>
+    const bannedByTag = cfg.tags?.some((rule) =>
         checkRule(rule, row.metadata.tags)
     )
-    const bannedByTitle = cfg.titles.some((rule) =>
+    const bannedByTitle = cfg.titles?.some((rule) =>
         checkRule(rule, [row.metadata.title])
     )
-    const bannedByUploader = cfg.uploaders.some((rule) =>
+    const bannedByUploader = cfg.uploaders?.some((rule) =>
         checkRule(rule, [row.metadata.uploader])
     )
-    const bannedByCategory = cfg.categories.some((rule) =>
+    const bannedByCategory = cfg.categories?.some((rule) =>
         checkRule(rule, [row.metadata.category])
     )
 
