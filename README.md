@@ -28,6 +28,10 @@ const CONFIG = {
         //     otherwise you'll end up blocking other users with similar names (eg some_name123 and user_with_some_name)
         // { hide: ['^some_name$'] }
     ],
+    categories: [
+        // Same as above
+        // { hide: ["western"] },
+    ],
 }
 ```
 
