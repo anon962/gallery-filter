@@ -2,6 +2,7 @@ export interface Config {
     tags: ConfigRule[]
     titles: ConfigRule[]
     uploaders: ConfigRule[]
+    categories: ConfigRule[]
 }
 
 export interface ConfigRule {
@@ -29,6 +30,7 @@ export type RowWithMetadata = Row & {
         tags: string[]
         title: string
         uploader: string
+        category: string
     }
 }
 

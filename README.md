@@ -70,7 +70,7 @@ The tldr is to first set up a web server to host the userscript
 npx http-server ./dist -c-1
 ```
 
-Then when you visit http://localhost:8000/userscript.user.js, Violentmonkey should [ask for permission](https://github.com/anon962/gallery-filter/assets/80538688/008959fc-a00e-4a80-b0ee-5664c41aa790) to "track changes" and "reload tab" on change.
+Then when you visit http://localhost:8080/userscript.user.js, Violentmonkey should [ask for permission](https://github.com/anon962/gallery-filter/assets/80538688/008959fc-a00e-4a80-b0ee-5664c41aa790) to "track changes" and "reload tab" on change.
 
 ### TODO
 

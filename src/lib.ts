@@ -147,11 +147,27 @@ function checkGalleryHidden(cfg: Config, row: RowWithMetadata): boolean {
     const bannedByUploader = cfg.uploaders.some((rule) =>
         checkRule(rule, [row.metadata.uploader])
     )
+    const bannedByCategory = cfg.categories.some((rule) =>
+        checkRule(rule, [row.metadata.category])
+    )
 
-    return bannedByTag || bannedByTitle || bannedByUploader
+    return bannedByTag || bannedByTitle || bannedByUploader || bannedByCategory
 }
 
 export async function run(cfg: Config) {
+    let cfgOverride = localStorage.getItem("GALLERY_FILTER_CONFIG_OVERRIDE")
+    if (cfgOverride) {
+        try {
+            cfg = JSON.parse(cfgOverride)
+            console.log("Using localStorage override for config", cfg)
+        } catch (e) {
+            console.error(
+                "GALLERY_FILTER_CONFIG_OVERRIDE exists but invalid",
+                cfgOverride
+            )
+        }
+    }
+
     const rows = selectGalleryRows()
     const rowsWithMetadata = await fetchApiData(rows)
 
