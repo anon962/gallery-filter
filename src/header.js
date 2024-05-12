@@ -16,6 +16,7 @@
 // @include     https://e-hentai.org/cosplay*
 // @include     https://e-hentai.org/asianporn*
 // @include     https://e-hentai.org/misc*
+// @include     https://e-hentai.org/favorites.php
 // @require     https://cdn.jsdelivr.net/npm/alameda@1.4.0/alameda.js
 // @version     0.2.0
 // ==/UserScript==

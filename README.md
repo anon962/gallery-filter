@@ -29,7 +29,7 @@ const CONFIG = {
         // { hide: ['^some_name$'] }
     ],
     categories: [
-        // Same as above
+        // Same as above, useful for favorites page where there's no filters
         // { hide: ["western"] },
     ],
 }
